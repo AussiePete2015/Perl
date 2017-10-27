@@ -1,0 +1,28 @@
+#!/perl/bin/perl -l
+my $clargs = "";
+foreach $argnum ( 0 .. $#ARGV) {
+	$clargs = $clargs . " " . $ARGV[$argnum]
+} 
+use Cwd 'abs_path';
+use File::Basename;
+my $fpath = abs_path($0);
+my ($filename, $directory) = fileparse($fpath);
+my $jarspec = $directory . "StorageReplicationAdapter.jar";
+my $len=length $directory;
+my $lastchar=substr $directory,$len-1,$len;
+my $trimmedpath=$directory;
+if ($lastchar eq "\\"){
+    $trimmedpath=substr $directory,0,$len-1;
+}
+
+my $cmd = "\"C:/Program Files (x86)/Dell/Modular Disk Storage Replication Adapter/jre/bin/java.exe\" -Dsra.install.dir=\"$trimmedpath\" -jar \"$jarspec\"$clargs";
+
+
+print $fpath . "\n";
+print $filename . "\n";
+print $directory . "\n";
+print $jarspec . "\n";
+print $len . "\n";
+print $lastchar . "\n";
+print $trimmedpath;
+print $cmd;
